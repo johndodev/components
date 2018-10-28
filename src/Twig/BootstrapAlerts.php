@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Twig;
+namespace Johndodev\Components\Twig;
 
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Twig_Extension;
@@ -15,15 +15,6 @@ class BootstrapAlerts extends Twig_Extension
     const BLUE      = 'info';
     const RED       = 'danger';
     const GREEN     = 'success';
-    /**
-     * @var \Twig_Environment
-     */
-    private $twig;
-
-    public function __construct(\Twig_Environment $twig_Environment)
-    {
-        $this->twig = $twig_Environment;
-    }
 
 
     /***********************************************************************************************************
@@ -33,25 +24,14 @@ class BootstrapAlerts extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('alert',         [$this, 'alert'],         ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('yellowAlert',   [$this, 'yellowAlert'],   ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('blueAlert',     [$this, 'blueAlert'],     ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('redAlert',      [$this, 'redAlert'],      ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('greenAlert',    [$this, 'greenAlert'],    ['is_safe' => ['html']])
+            new Twig_SimpleFunction('alert',         [$this, 'alert'],         ['is_safe' => ['html'], 'needs_environment' => true]),
+            new Twig_SimpleFunction('yellowAlert',   [$this, 'yellowAlert'],   ['is_safe' => ['html'], 'needs_environment' => true]),
+            new Twig_SimpleFunction('blueAlert',     [$this, 'blueAlert'],     ['is_safe' => ['html'], 'needs_environment' => true]),
+            new Twig_SimpleFunction('redAlert',      [$this, 'redAlert'],      ['is_safe' => ['html'], 'needs_environment' => true]),
+            new Twig_SimpleFunction('greenAlert',    [$this, 'greenAlert'],    ['is_safe' => ['html'], 'needs_environment' => true])
 
         ];
     }
-
-    /**
-     * name of the extension
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return "BootstrapAlerts";
-    }
-
 
     /***********************************************************************************************************
      *                              TWIG FUNCTIONS
@@ -60,8 +40,9 @@ class BootstrapAlerts extends Twig_Extension
      * @param FlashBagInterface $flashbag
      * @return string
      */
-    public function alert(FlashBagInterface $flashbag)
+    public function alert(\Twig_Environment $twig, FlashBagInterface $flashbag)
     {
+        var_dump(get_class($twig));die;
         $outputHTML = '';
 
         foreach ($flashbag->keys() as $type) {
