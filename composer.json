@@ -1,0 +1,6 @@
+{
+    "name": "johndodev/components",
+    "autoload": {
+        "psr-4": { "Johndodev\\Component\\": "src" }
+    }
+}
