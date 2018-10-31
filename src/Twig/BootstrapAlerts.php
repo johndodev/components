@@ -46,7 +46,7 @@ class BootstrapAlerts extends Twig_Extension
 
         foreach ($flashbag->keys() as $type) {
             foreach ($flashbag->get($type) as $message) {
-                $outputHTML .= $twig->render('bootstrap_alerts.html.twig', [
+                $outputHTML .= $twig->render('@JohndodevComponents/bootstrap_alerts.html.twig', [
                     'message' => $message,
                     'class' => $type,
                 ]);
@@ -58,7 +58,7 @@ class BootstrapAlerts extends Twig_Extension
 
     public function yellowAlert(\Twig_Environment $twig, $message)
     {
-        return $twig->render('bootstrap_alerts.html.twig', [
+        return $twig->render('@JohndodevComponents/bootstrap_alerts.html.twig', [
             'message' => $message,
             'class' => self::YELLOW,
         ]);
@@ -66,7 +66,7 @@ class BootstrapAlerts extends Twig_Extension
 
     public function blueAlert(\Twig_Environment $twig, $message)
     {
-        return $twig->render('bootstrap_alerts.html.twig', [
+        return $twig->render('@JohndodevComponents/bootstrap_alerts.html.twig', [
             'message' => $message,
             'class' => self::BLUE,
         ]);
@@ -74,7 +74,7 @@ class BootstrapAlerts extends Twig_Extension
 
     public function redAlert(\Twig_Environment $twig, $message)
     {
-        return $twig->render('bootstrap_alerts.html.twig', [
+        return $twig->render('@JohndodevComponents/bootstrap_alerts.html.twig', [
             'message' => $message,
             'class' => self::RED,
         ]);
@@ -82,7 +82,7 @@ class BootstrapAlerts extends Twig_Extension
 
     public function greenAlert(\Twig_Environment $twig, $message)
     {
-        return $twig->render('bootstrap_alerts.html.twig', [
+        return $twig->render('@JohndodevComponents/bootstrap_alerts.html.twig', [
             'message' => $message,
             'class' => self::GREEN,
         ]);
