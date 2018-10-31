@@ -42,44 +42,49 @@ class BootstrapAlerts extends Twig_Extension
      */
     public function alert(\Twig_Environment $twig, FlashBagInterface $flashbag)
     {
-        var_dump(get_class($twig));die;
         $outputHTML = '';
 
         foreach ($flashbag->keys() as $type) {
             foreach ($flashbag->get($type) as $message) {
-                $outputHTML .= $this->renderMessage($message, $type);
+                $outputHTML .= $twig->render('bootstrap_alerts.html.twig', [
+                    'message' => $message,
+                    'class' => $type,
+                ]);
             }
         }
 
         return $outputHTML;
     }
 
-    public function yellowAlert($message)
+    public function yellowAlert(\Twig_Environment $twig, $message)
     {
-        return $this->renderMessage($message, self::YELLOW);
+        return $twig->render('bootstrap_alerts.html.twig', [
+            'message' => $message,
+            'class' => self::YELLOW,
+        ]);
     }
 
-    public function blueAlert($message)
+    public function blueAlert(\Twig_Environment $twig, $message)
     {
-        return $this->renderMessage($message, self::BLUE);
+        return $twig->render('bootstrap_alerts.html.twig', [
+            'message' => $message,
+            'class' => self::BLUE,
+        ]);
     }
 
-    public function redAlert($message)
+    public function redAlert(\Twig_Environment $twig, $message)
     {
-        return $this->renderMessage($message, self::RED);
+        return $twig->render('bootstrap_alerts.html.twig', [
+            'message' => $message,
+            'class' => self::RED,
+        ]);
     }
 
-    public function greenAlert($message)
+    public function greenAlert(\Twig_Environment $twig, $message)
     {
-        return $this->renderMessage($message, self::GREEN);
-    }
-
-    private function renderMessage($message, $class)
-    {
-        $datas              = [];
-        $datas['message']   = $message;
-        $datas['class']     = $class;
-
-        return $this->twig->render('bootstrap_alerts.html.twig', $datas);
+        return $twig->render('bootstrap_alerts.html.twig', [
+            'message' => $message,
+            'class' => self::GREEN,
+        ]);
     }
 }
