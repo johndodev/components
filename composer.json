@@ -1,6 +1,8 @@
 {
     "name": "johndodev/components",
+    "description": "",
     "type": "symfony-bundle",
+    "license": "MIT",
     "autoload": {
         "psr-4": { "Johndodev\\Components\\": "src" }
     }
