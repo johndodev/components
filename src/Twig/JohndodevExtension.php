@@ -28,7 +28,7 @@ class JohndodevExtension extends Twig_Extension
                     $type = 'error';
                 }
 
-                $outputHTML .= $twig->render('Common/toast.html.twig', [
+                $outputHTML .= $twig->render('@JohndodevComponents/toast.html.twig', [
                     'type' => $type,
                     'message' => $message,
                 ]);
