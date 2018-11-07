@@ -45,12 +45,21 @@ class PicturesExtension extends \Twig_Extension
      ***********************************************************************************************************/
     public function crop($path, $x, $y = null)
     {
-        return $path.'?c='.$x.($y ? 'x'.$y:'');
+        if (strpos($path, '?')) {
+            return $path.'&c='.$x.($y ? 'x'.$y:'');
+        } else {
+            return $path.'?c='.$x.($y ? 'x'.$y:'');
+        }
+
     }
 
     public function resize($path, $x, $y = null)
     {
-        return $path.'?r='.$x.($y ? 'x'.$y:'');
+        if (strpos($path, '?')) {
+            return $path.'&r='.$x.($y ? 'x'.$y:'');
+        } else {
+            return $path.'?r='.$x.($y ? 'x'.$y:'');
+        }
     }
 
     /***********************************************************************************************************
@@ -73,7 +82,7 @@ class PicturesExtension extends \Twig_Extension
     public function picture(Picture $picture = null)
     {
         if ($picture) {
-            return $this->getRoute($picture->getPath());
+            return $this->getRoute($picture->getPath(), $picture->getCropQueryDatas());
         }
 
         return $this->getRoute('pictures/default_picture.jpg');
@@ -90,8 +99,10 @@ class PicturesExtension extends \Twig_Extension
     /**
      * @param string $path the path of the picture (ex: $picture->getPath() or "pictures/pic.jpg")
      */
-    private function getRoute($path)
+    private function getRoute($path, array $params = [])
     {
-        return $this->router->generate('media.pictures', ['path' => $path]);
+        $params['path'] = $path;
+
+        return $this->router->generate('media.pictures', $params);
     }
 }
